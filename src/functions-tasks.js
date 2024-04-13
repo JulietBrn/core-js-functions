@@ -32,8 +32,14 @@ function getCurrentFunctionName() {
  *   getFunctionBody(hiHello) => "function hiHello() { console.log('hello world'); }"
  *
  */
-function getFunctionBody(/* func */) {
-  throw new Error('Not implemented');
+function getFunctionBody(func) {
+  let result;
+  if (typeof func === 'function') {
+    result = func.toString();
+  } else {
+    result = '';
+  }
+  return result;
 }
 
 /**
@@ -174,8 +180,10 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return function func(...args2) {
+    return fn(...args1, ...args2);
+  };
 }
 
 /**
@@ -195,8 +203,13 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  let nextValue = startFrom;
+  return function myFunc() {
+    const currentValue = nextValue;
+    nextValue += 1;
+    return currentValue;
+  };
 }
 
 module.exports = {
